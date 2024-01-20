@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <link rel="shortcut icon" type="image/x-icon" href="https://media.discordapp.net/attachments/1175573738599759882/1198039883227344936/DarkbringerUpdated.webp?ex=65bd7496&is=65aaff96&hm=1f09ff2ae44b43e25c711e86330e41f2e17e8c0d2b410acb52f637fe3ef7fe1d&=&format=webp" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim your Order</title>
+    <style>
+        body, html {
+            background-image: url('back_1920x1080_crop_center.webp');
+            background-size: 1920px 1080px;
+            background-color: #cccccc;
+
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Above background but below content */
+        }
+
+        .order-section {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .order-section img {
+            max-width: 14%; /* Adjust this value as needed */
+            margin-bottom: 7px;
+        }
+
+        .order-section input {
+            padding: 10px;
+            margin: 3px 0;
+            background: rgb(255 255 255 / 100%);
+            border: none;
+            border-radius: 5px;
+            color: black;
+        }
+
+        .order-section button {
+            margin-top: 10px;
+            padding: 12.5px 30px;
+            border: 0;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            font-weight: Bold;
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            cursor: pointer; /* Added for mouse hand pointer on hover */
+        }
+        .order-section button:hover {
+            background-color: #f76161;
+            box-shadow: 0 0 20px #f76161;
+            transform: scale(1.1);
+        }
+
+        .order-section button:active {
+            background-color: #3d94cf;
+            transition: all 0.25s;
+            -webkit-transition: all 0.25s;
+            box-shadow: none;
+            transform: scale(0.98);
+        }
+        .order-section small {
+            position: absolute;
+            bottom: 10px;  /* distance from the bottom of the container */
+            left: 50%;     /* center it horizontally */
+            transform: translateX(-50%); /* shift it to the left by half of its width to keep it centered */
+        }
+        .email-input {
+            background: rgba(0, 0, 0, 0.7) url('https://media.discordapp.net/attachments/1137083616212553900/1165783437714669628/image.png?ex=65481b6e&is=6535a66e&hm=b540ffcdce9793d720dd1de59d3f42a40b00c90b4a26fd4293ebd433411d6662&=&width=938&height=938') no-repeat 10px center; /* Adjust the path to your logo icon */
+            background-size: 20px 20px; /* Adjust size */
+            padding-left: 40px; /* Add padding on the left to make room for the logo */
+        }
+        .modal {
+            margin-top: 15%;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; /* adjust width */
+            max-width: 400px;
+            padding: 20px;
+            background-color: #171717;
+            text-align: center;
+        }
+
+        .modal-image {
+            width: 40%;
+        }
+        .age-choices {
+            margin-bottom: 20px;
+        }
+        .ageContinue {
+            margin-top: 10px;
+            padding: 12.5px 30px;
+            border: 0;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            font-weight: Bold;
+            transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            cursor: pointer; /* Added for mouse hand pointer on hover */            
+        }
+        .ageContinue button:hover {
+            background-color: #f76161;
+            box-shadow: 0 0 20px #f76161;
+            transform: scale(1.1);
+        }
+
+        .ageContinue button:active {
+            background-color: #3d94cf;
+            transition: all 0.25s;
+            -webkit-transition: all 0.25s;
+            box-shadow: none;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas></canvas>
+        <div class="order-section">
+            <img src="https://media.discordapp.net/attachments/981218543016247326/1194404577471107234/logo.png?ex=65b03af2&is=659dc5f2&hm=84ee93f0fef40f852ab42d0f66f0f2617de1f5ee1c83bd700cb68632afbe73e1&=&format=webp&quality=lossless&=&width=1500&height=1052" alt="Logo.png"> <!-- Adjust the source if your logo is named differently -->
+            <h1 style="color:white; margin-bottom: -15px;">Claim Order</h1>
+            <p style="color:white; margin-bottom: 15px;">You must over Level 10 in MM2</p>
+            <input type="email" class="email-input" placeholder="Roblox Username">
+            <input type="text" placeholder="Order Number">
+            <button>Continue</button>
+            <small style="color:white; margin-top: 20px;">© 2024 MM2.Express – Rights Reserved </small>
+        </div>
+
+        <!-- Age Confirmation Modal -->
+        <div class="modal" id="ageModal">
+            <div class="modal-content">
+                <img src="https://assets.stickpng.com/images/628f3cd7b811315cbd3d881b.png" alt="Description" class="modal-image">
+                <p>Is your account age:</p>
+                <div class="age-choices">
+                    <label>
+                        <input type="radio" name="age" value="13+"> 13+
+                    </label>
+                    <label>
+                        <input type="radio" name="age" value="13-"> 13-
+                    </label>
+                </div>
+                <button class="ageContinue" id="ageContinue">Claim</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const emailInput = document.querySelector('.email-input');
+        const orderIdInput = document.querySelector('input[placeholder="Your order ID"]');
+
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const continueButton = document.querySelector('.order-section button');
+        const ageModal = document.getElementById('ageModal');
+        const ageContinue = document.getElementById('ageContinue');
+
+        continueButton.addEventListener('click', function() {
+            ageModal.style.display = 'block';
+        });
+
+        ageContinue.addEventListener('click', function() {
+            ageModal.style.display = 'none'; 
+        });
+        document.getElementById('ageContinue').addEventListener('click', function() {
+            var ageChoice = document.querySelector('input[name="age"]:checked').value;
+            
+            if (ageChoice === '13+') {
+                window.location.href = "https://www.roblox.com/share?code=556e8ac95d70554eb73cf7d9f986ece3&type=Server"; //  13+ link
+            } else if (ageChoice === '13-') {
+                window.location.href = "https://www.roblox.com/users/5083595350/profile"; //  13- link
+            }
+        });
+        continueButton.addEventListener('click', function(event) {
+            const emailInputValue = emailInput.value.trim();
+            const orderIdInputValue = orderIdInput.value.trim();
+
+            if (!emailInputValue || !orderIdInputValue) {
+                alert('Please enter your Roblox username & Order number before continuing.');
+            } else {
+                ageModal.style.display = 'block';
+            }
+        });
+
+
+    </script>
+</body>
+</html>
